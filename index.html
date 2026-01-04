@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>DAILY STUDY - Build Your Habit</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -29,13 +29,13 @@
         </section>
 
         <section id="view-menu" class="view">
-            <div class="header">
+            <div class="header-fixed">
                 <button class="btn-back hidden-placeholder">←</button>
                 <h2>Pilih Habit</h2>
                 <button class="btn-back" onclick="navigateTo('view-home')">⌂</button>
             </div>
             
-            <div class="card-container grid-layout">
+            <div class="scrollable-content grid-layout">
                 <div class="card active-card" onclick="selectHabit('Math')">
                     <div class="icon">🧮</div>
                     <div class="card-text">
@@ -50,19 +50,18 @@
                     <div class="card-text">
                         <h3>Habit English</h3>
                         <span class="badge badge-green">VOCABULARY</span>
-                        <p class="card-desc">Latihan Kata 1 Baris</p>
+                        <p class="card-desc">Latihan Kata (Anti-Duplikat)</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="view-math-chapters" class="view">
-            <div class="header">
+            <div class="header-fixed">
                 <button class="btn-back" onclick="navigateTo('view-menu')">←</button>
                 <h2>Habit Math</h2>
             </div>
-            <p class="section-label">Pilih Bab:</p>
-            <div class="card-container grid-layout">
+            <div class="scrollable-content grid-layout">
                 <div class="card active-card" onclick="selectChapter('integer')">
                     <div class="icon">123</div>
                     <div class="card-text">
@@ -89,12 +88,11 @@
         </section>
 
         <section id="view-english-modes" class="view">
-            <div class="header">
+            <div class="header-fixed">
                 <button class="btn-back" onclick="navigateTo('view-menu')">←</button>
                 <h2>Vocabulary</h2>
             </div>
-            <p class="section-label">Pilih Mode Latihan:</p>
-            <div class="card-container">
+            <div class="scrollable-content">
                 <div class="card active-card" onclick="startEnglishGame('en_to_id')">
                     <div class="icon">🇬🇧</div>
                     <div class="card-text">
@@ -113,11 +111,11 @@
         </section>
 
         <section id="view-topics" class="view">
-            <div class="header">
+            <div class="header-fixed">
                 <button class="btn-back" onclick="navigateTo('view-math-chapters')">←</button>
                 <h2 id="topic-title">Pilih Topik</h2>
             </div>
-            <div class="topic-list grid-layout">
+            <div class="scrollable-content grid-layout">
                 <button class="btn-topic topic-common" onclick="startGame('addition')">
                     <span>Pertambahan (+)</span> <span class="arrow">➜</span>
                 </button>
@@ -137,49 +135,43 @@
             </div>
         </section>
 
-        <section id="view-quiz" class="view">
-            <div class="quiz-header">
-                <div class="stat-box">
-                    <span>❤️</span> <span id="lives">3</span>
-                </div>
-                <div class="stat-box">
-                    <span>🏆</span> <span id="score">0</span>
-                </div>
-            </div>
+        <section id="view-quiz" class="view view-quiz-layout">
             
-            <div class="timer-container">
-                <div class="timer-bar">
-                    <div id="timer-fill"></div>
+            <div class="quiz-top-bar">
+                <div class="quiz-header">
+                    <div class="stat-box">❤️ <span id="lives">3</span></div>
+                    <div class="stat-box">🏆 <span id="score">0</span></div>
                 </div>
+                <div class="timer-bar"><div id="timer-fill"></div></div>
+                <div class="difficulty-badge" id="difficulty-label">MOTS</div>
+                <div id="mode-indicator"></div>
             </div>
 
-            <div class="difficulty-badge" id="difficulty-label">MOTS</div>
-            <div id="mode-indicator"></div> <div class="question-container-desktop">
-                <div class="question-area">
+            <div class="question-wrapper">
+                <div class="question-content">
                     <div id="question-text">Loading...</div>
                     <div id="math-expression"></div>
                 </div>
-
-                <div class="interaction-area">
-                    <div class="input-wrapper">
-                        <input 
-                            type="text" 
-                            id="answer-input" 
-                            placeholder="Ketik jawaban..." 
-                            autocomplete="off" 
-                            autocorrect="off" 
-                            autocapitalize="off" 
-                            spellcheck="false"
-                            inputmode="text" 
-                            onkeydown="handleEnter(event)">
-                        
-                        <button class="btn-submit" onclick="checkAnswer()">JAWAB</button>
-                    </div>
-                    <p id="feedback-msg"></p>
-                </div>
             </div>
 
-            <button class="btn-quit" onclick="endGame()">Akhiri Sesi</button>
+            <div class="quiz-bottom-bar">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="answer-input" 
+                        placeholder="Ketik jawaban..." 
+                        autocomplete="off" 
+                        autocorrect="off" 
+                        autocapitalize="off" 
+                        spellcheck="false"
+                        inputmode="text" 
+                        onkeydown="handleEnter(event)">
+                    
+                    <button class="btn-submit" onclick="checkAnswer()">JAWAB</button>
+                </div>
+                <p id="feedback-msg"></p>
+                <button class="btn-quit" onclick="endGame()">Akhiri Sesi</button>
+            </div>
         </section>
 
         <div id="modal-gameover" class="modal">

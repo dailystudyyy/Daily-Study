@@ -1,21 +1,25 @@
 :root {
     /* LIGHT MODE PALETTE */
-    --bg-body: #f4f7fa;
+    --bg-body: #f0f4f8;
     --bg-app: #ffffff;
     --bg-card: #ffffff;
     --bg-input: #f8f9fa;
-    --text-main: #2d3436;
-    --text-muted: #636e72;
-    --primary-blue: #0984e3;
-    --dark-blue: #2d3436;
-    --light-blue: #dfe6e9;
-    --border-color: #dfe6e9;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --primary-blue: #4A90E2;
+    --dark-blue: #00509E;
+    --light-blue: #EAF4FF;
+    --border-color: #EAF4FF;
     --shadow-color: rgba(0,0,0,0.08);
     
-    --danger: #d63031;
-    --success: #00b894;
-    --warning: #fdcb6e;
+    --danger: #FF6B6B;
+    --success: #51CF66;
+    --warning: #FCC419;
     --font-main: 'Fredoka', sans-serif;
+    
+    /* SAFE AREA (Poni HP) */
+    --safe-top: env(safe-area-inset-top);
+    --safe-bottom: env(safe-area-inset-bottom);
 }
 
 /* DARK MODE PALETTE */
@@ -66,6 +70,8 @@ body {
     flex-direction: column;
     box-shadow: 0 0 40px var(--shadow-color);
     overflow: hidden;
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
 }
 
 /* THEME TOGGLE */
@@ -86,6 +92,11 @@ body {
     animation: fadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .view.active { display: flex; }
+
+/* FIX LAYOUT QUIZ AGAR TIDAK KEPOTONG */
+.view-quiz-layout {
+    overflow: hidden; padding: 0;
+}
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(15px); }
@@ -120,10 +131,10 @@ body {
 .hidden-placeholder { visibility: hidden; pointer-events: none; }
 
 /* HEADER & CARDS */
-.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; padding-top: 10px; flex-shrink: 0; }
-.header h2 { font-size: 1.5rem; color: var(--text-main); margin: 0; flex-grow: 1; text-align: center; margin-left: -40px; }
+.header-fixed { padding: 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; background: var(--bg-app); z-index: 10; }
+.header-fixed h2 { font-size: 1.5rem; color: var(--text-main); margin: 0; flex-grow: 1; text-align: center; margin-left: -40px; }
 
-.card-container { display: flex; flex-direction: column; gap: 15px; padding-bottom: 20px; }
+.scrollable-content { flex: 1; overflow-y: auto; padding: 0 20px 20px 20px; display: flex; flex-direction: column; gap: 15px; }
 
 .card {
     background: var(--bg-card); border: 2px solid var(--border-color);
@@ -145,7 +156,6 @@ body {
 .badge-warning { background: var(--warning); color: #333; }
 
 /* TOPIC LIST */
-.topic-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; }
 .btn-topic {
     padding: 20px 25px; border-radius: 18px; background: var(--bg-card); color: var(--text-main);
     border: 2px solid var(--border-color); font-size: 1.1rem; text-align: left;
@@ -153,15 +163,15 @@ body {
     box-shadow: 0 4px 10px var(--shadow-color); transition: 0.2s; font-weight: 600; cursor: pointer;
 }
 .btn-topic:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
-.topic-special { background: var(--primary-blue); color: white; border: none; box-shadow: 0 8px 20px rgba(9, 132, 227, 0.3); }
+.topic-special { background: var(--primary-blue); color: white; border: none; box-shadow: 0 8px 20px rgba(9, 132, 227, 0.3); text-align: center; }
 .topic-special:hover { color: white; opacity: 0.9; }
 
-/* GAME UI */
+/* QUIZ UI - TOP BAR */
+.quiz-top-bar { padding: 20px 20px 10px 20px; flex-shrink: 0; background: var(--bg-app); z-index: 10; }
 .quiz-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.2rem; font-weight: 700; flex-shrink: 0; }
 .stat-box { background: var(--light-blue); color: var(--text-main); padding: 8px 18px; border-radius: 50px; display: flex; align-items: center; gap: 8px; }
 
-.timer-container { width: 100%; padding: 0 5px; margin-bottom: 20px; flex-shrink: 0; }
-.timer-bar { width: 100%; height: 10px; background: var(--border-color); border-radius: 10px; overflow: hidden; }
+.timer-bar { width: 100%; height: 10px; background: var(--border-color); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
 #timer-fill { height: 100%; background: var(--primary-blue); width: 100%; transition: width 0.1s linear; }
 
 .difficulty-badge {
@@ -171,33 +181,85 @@ body {
 }
 #mode-indicator { text-align: center; font-size: 0.8rem; margin-bottom: 10px; opacity: 0.7; font-weight: bold; }
 
-/* QUESTION AREA (AUTO HEIGHT & SCROLLABLE) */
+/* =================================================================
+   FIX UTAMA: QUESTION WRAPPER & TEXT HANDLING
+   ================================================================= */
+
+/* Wrapper untuk area soal agar bisa scroll tapi tetap flex */
+.question-wrapper {
+    flex: 1; 
+    min-height: 0; /* Magic property flexbox */
+    width: 100%; 
+    position: relative;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Kotak Soal */
 .question-area {
     background: var(--bg-card); 
     border: 2px solid var(--border-color);
-    padding: 25px; 
+    padding: 20px; 
     border-radius: 25px;
     text-align: center; 
     color: var(--text-main);
-    margin-bottom: 20px;
+    width: 100%;
     
-    /* Logic Height */
-    min-height: 160px;
-    height: auto;
-    max-height: 45vh; /* Batas tinggi maksimal di HP */
-    overflow-y: auto; /* Scroll jika konten panjang */
-    
+    /* Layout */
     display: flex; 
     align-items: center; 
     justify-content: center;
     flex-direction: column;
+    
+    /* Auto margin agar vertikal center saat konten sedikit, tapi scroll saat banyak */
+    margin-top: auto; 
+    margin-bottom: auto;
+    
     box-shadow: inset 0 0 20px var(--shadow-color);
 }
 
-.english-text { font-size: 1.8rem; font-weight: 500; line-height: 1.4; width: 100%; }
-.math-text { font-size: 2.4rem; white-space: nowrap; overflow-x: auto; padding: 10px; line-height: 2; font-weight: 500; }
+/* Fix Text English (Panjang ke bawah) */
+.english-text {
+    font-size: 1.6rem; 
+    font-weight: 500; 
+    line-height: 1.5; 
+    width: 100%;
+    
+    /* Force Wrap */
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    text-align: left; /* Rata kiri agar mudah dibaca */
+}
 
-/* INPUT WRAPPER */
+/* Fix Text Math (Panjang ke samping) */
+.math-text {
+    font-size: 2rem; /* Ukuran mobile */
+    font-weight: 500;
+    line-height: 2;
+    padding: 5px 0;
+    
+    /* Scroll Horizontal Aktif */
+    width: 100%;
+    max-width: 100%;
+    display: block; 
+    white-space: nowrap; 
+    overflow-x: auto; 
+    overflow-y: hidden;
+    text-align: center;
+    
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: thin;
+}
+
+/* ================================================================= */
+
+/* QUIZ UI - BOTTOM BAR (INPUT) */
+.quiz-bottom-bar { padding: 10px 20px 20px 20px; flex-shrink: 0; background: var(--bg-app); z-index: 10; }
+
 .input-wrapper { display: flex; gap: 10px; margin-bottom: 10px; width: 100%; height: 60px; flex-shrink: 0; }
 
 #answer-input {
@@ -205,7 +267,7 @@ body {
     border: 2px solid var(--border-color); background: var(--bg-input);
     color: var(--text-main); font-size: 1.3rem; font-family: var(--font-main); 
     text-align: center; min-width: 0; font-weight: 600;
-    -moz-appearance: textfield; /* Hapus spinner angka */
+    -moz-appearance: textfield;
 }
 #answer-input:focus { border-color: var(--primary-blue); outline: none; box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.1); }
 
@@ -243,16 +305,33 @@ body {
 .modal-actions { display: flex; flex-direction: column; gap: 12px; }
 .modal-content .btn-secondary { background: var(--light-blue); border: none; color: var(--text-main); padding: 15px; border-radius: 50px; font-weight: bold; width: 100%; cursor: pointer;}
 
-/* DESKTOP LAYOUT (GRID) */
+/* DESKTOP RESPONSIVE (LAPTOP GRID) */
 @media (min-width: 1024px) {
-    .app-container { max-width: 1200px; height: 90vh; border-radius: 30px; border: 1px solid var(--border-color); }
+    .app-container { 
+        max-width: 1200px; height: 90vh; border-radius: 20px; 
+        border: 1px solid var(--border-color);
+    }
     body { background-color: #eef2f6; }
     
-    .card-container.grid-layout, .topic-list.grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-    .question-container-desktop { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 0 150px; }
+    .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+    
+    .question-container-desktop { 
+        display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 0 150px; 
+    }
+    
+    /* Laptop Font Sizes */
     .question-area { min-height: 280px; padding: 40px; }
-    .english-text, .math-text { font-size: 3rem; }
-    .input-wrapper { height: 80px; max-width: 700px; margin: 0 auto 20px auto; }
+    .english-text { font-size: 2.2rem; text-align: center; }
+    .math-text { font-size: 3.5rem; }
+    
+    .input-wrapper { height: 80px; max-width: 600px; margin: 0 auto 20px auto; }
     #answer-input { font-size: 2rem; padding: 0 30px; }
     .btn-submit { font-size: 1.2rem; padding: 0 50px; }
+}
+
+/* SMALL PHONE (IPHONE SE/ANDROID KECIL) */
+@media (max-width: 360px) {
+    .math-text { font-size: 1.6rem; }
+    .english-text { font-size: 1.4rem; }
+    .btn-submit { width: 80px; font-size: 0.9rem; padding: 0 10px; }
 }
