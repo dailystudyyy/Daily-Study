@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DAILY STUDY - Habit Math</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Ganti Tema">
+        <span class="icon-theme">☀️</span>
+    </button>
+
+    <div class="app-container">
+        
+        <section id="view-home" class="view active">
+            <div class="hero-content">
+                <h1 class="main-title">DAILY STUDY</h1>
+                <p class="tagline">Build Your Daily Study Habit</p>
+                <button class="btn-primary" onclick="navigateTo('view-menu')">Mulai Belajar</button>
+            </div>
+        </section>
+
+        <section id="view-menu" class="view">
+            <div class="header">
+                <button class="btn-back" onclick="navigateTo('view-home')">←</button>
+                <h2>Pilih Habit</h2>
+            </div>
+            
+            <div class="card-container">
+                <div class="card active-card" onclick="selectHabit('Math')">
+                    <div class="icon">🧮</div>
+                    <div class="card-text">
+                        <h3>Habit Math</h3>
+                        <span class="badge">AKTIF</span>
+                    </div>
+                </div>
+
+                <div class="card disabled-card">
+                    <div class="icon">🇬🇧</div>
+                    <div class="card-text">
+                        <h3>Habit English</h3>
+                        <span class="badge coming-soon">COMING SOON</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-chapters" class="view">
+            <div class="header">
+                <button class="btn-back" onclick="navigateTo('view-menu')">←</button>
+                <h2>Habit Math</h2>
+            </div>
+            <p class="section-label">Pilih Bab:</p>
+            <div class="card-container grid-layout">
+                <div class="card active-card" onclick="selectChapter('integer')">
+                    <div class="icon">123</div>
+                    <h3>Bab Bilangan</h3>
+                </div>
+                <div class="card active-card" onclick="selectChapter('fraction')">
+                    <div class="icon">½</div>
+                    <h3>Bab Pecahan</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-topics" class="view">
+            <div class="header">
+                <button class="btn-back" onclick="navigateTo('view-chapters')">←</button>
+                <h2 id="topic-title">Pilih Topik</h2>
+            </div>
+            <div class="topic-list grid-layout">
+                <button class="btn-topic" onclick="startGame('addition')">Pertambahan (+)</button>
+                <button class="btn-topic" onclick="startGame('subtraction')">Pengurangan (-)</button>
+                <button class="btn-topic" onclick="startGame('multiplication')">Perkalian (×)</button>
+                <button class="btn-topic" onclick="startGame('division')">Pembagian (÷)</button>
+            </div>
+        </section>
+
+        <section id="view-quiz" class="view">
+            <div class="quiz-header">
+                <div class="stat-box">
+                    <span>❤️</span> <span id="lives">3</span>
+                </div>
+                <div class="stat-box">
+                    <span>🏆</span> <span id="score">0</span>
+                </div>
+            </div>
+            
+            <div class="timer-bar">
+                <div id="timer-fill"></div>
+            </div>
+
+            <div class="difficulty-badge" id="difficulty-label">MOTS</div>
+
+            <div class="question-container-desktop">
+                <div class="question-area">
+                    <div id="math-expression">$$...$$</div>
+                </div>
+
+                <div class="interaction-area">
+                    <div class="input-area">
+                        <input type="text" id="answer-input" placeholder="Jawab.." autocomplete="off" onkeydown="handleEnter(event)">
+                        <button class="btn-submit" onclick="checkAnswer()">JAWAB</button>
+                    </div>
+                    <p id="feedback-msg"></p>
+                </div>
+            </div>
+
+            <button class="btn-quit" onclick="endGame()">Akhiri Sesi</button>
+        </section>
+
+        <div id="modal-gameover" class="modal">
+            <div class="modal-content">
+                <h2>GAME OVER</h2>
+                <p>Skor Akhir Kamu:</p>
+                <h1 id="final-score">0</h1>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="restartGame()">Coba Lagi</button>
+                    <button class="btn-secondary" onclick="goToMenu()">Menu Utama</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
