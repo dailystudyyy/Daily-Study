@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DAILY STUDY - Habit English</title>
+    <title>DAILY STUDY - Build Your Habit</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 
@@ -23,15 +23,16 @@
         <section id="view-home" class="view active">
             <div class="hero-content">
                 <h1 class="main-title">DAILY STUDY</h1>
-                <p class="tagline">Build Your Daily Study Habit</p>
-                <button class="btn-primary" onclick="navigateTo('view-menu')">Mulai Belajar</button>
+                <p class="tagline">Build Your Daily Learning Habit</p>
+                <button class="btn-primary pulse-anim" onclick="navigateTo('view-menu')">Mulai Belajar</button>
             </div>
         </section>
 
         <section id="view-menu" class="view">
             <div class="header">
-                <button class="btn-back" onclick="navigateTo('view-home')">←</button>
+                <button class="btn-back hidden-placeholder">←</button>
                 <h2>Pilih Habit</h2>
+                <button class="btn-back" onclick="navigateTo('view-home')">⌂</button>
             </div>
             
             <div class="card-container grid-layout">
@@ -39,7 +40,8 @@
                     <div class="icon">🧮</div>
                     <div class="card-text">
                         <h3>Habit Math</h3>
-                        <span class="badge">AKTIF</span>
+                        <span class="badge badge-blue">UNLIMITED</span>
+                        <p class="card-desc">Bilangan, Pecahan & Eksponen</p>
                     </div>
                 </div>
 
@@ -47,7 +49,8 @@
                     <div class="icon">🇬🇧</div>
                     <div class="card-text">
                         <h3>Habit English</h3>
-                        <span class="badge">VOCABULARY</span>
+                        <span class="badge badge-green">VOCABULARY</span>
+                        <p class="card-desc">Latihan Kata 1 Baris</p>
                     </div>
                 </div>
             </div>
@@ -62,11 +65,25 @@
             <div class="card-container grid-layout">
                 <div class="card active-card" onclick="selectChapter('integer')">
                     <div class="icon">123</div>
-                    <h3>Bab Bilangan</h3>
+                    <div class="card-text">
+                        <h3>Bab Bilangan</h3>
+                        <p class="card-desc">Operasi Dasar (+ - × ÷)</p>
+                    </div>
                 </div>
                 <div class="card active-card" onclick="selectChapter('fraction')">
                     <div class="icon">½</div>
-                    <h3>Bab Pecahan</h3>
+                    <div class="card-text">
+                        <h3>Bab Pecahan</h3>
+                        <p class="card-desc">Operasi Pecahan Dasar</p>
+                    </div>
+                </div>
+                <div class="card active-card" onclick="selectChapter('exponent_chapter')">
+                    <div class="icon">xⁿ</div>
+                    <div class="card-text">
+                        <h3>Bab Eksponen</h3>
+                        <p class="card-desc">Pangkat & Sifatnya</p>
+                        <span class="badge badge-warning">40 DETIK</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -79,14 +96,14 @@
             <p class="section-label">Pilih Mode Latihan:</p>
             <div class="card-container">
                 <div class="card active-card" onclick="startEnglishGame('en_to_id')">
-                    <div class="icon">🇬🇧 ➜ 🇮🇩</div>
+                    <div class="icon">🇬🇧</div>
                     <div class="card-text">
                         <h3>English ➜ Indonesia</h3>
                         <span class="badge">1 BARIS</span>
                     </div>
                 </div>
                 <div class="card active-card" onclick="startEnglishGame('id_to_en')">
-                    <div class="icon">🇮🇩 ➜ 🇬🇧</div>
+                    <div class="icon">🇮🇩</div>
                     <div class="card-text">
                         <h3>Indonesia ➜ English</h3>
                         <span class="badge">1 BARIS</span>
@@ -101,10 +118,22 @@
                 <h2 id="topic-title">Pilih Topik</h2>
             </div>
             <div class="topic-list grid-layout">
-                <button class="btn-topic" onclick="startGame('addition')">Pertambahan (+)</button>
-                <button class="btn-topic" onclick="startGame('subtraction')">Pengurangan (-)</button>
-                <button class="btn-topic" onclick="startGame('multiplication')">Perkalian (×)</button>
-                <button class="btn-topic" onclick="startGame('division')">Pembagian (÷)</button>
+                <button class="btn-topic topic-common" onclick="startGame('addition')">
+                    <span>Pertambahan (+)</span> <span class="arrow">➜</span>
+                </button>
+                <button class="btn-topic topic-common" onclick="startGame('subtraction')">
+                    <span>Pengurangan (-)</span> <span class="arrow">➜</span>
+                </button>
+                <button class="btn-topic topic-common" onclick="startGame('multiplication')">
+                    <span>Perkalian (×)</span> <span class="arrow">➜</span>
+                </button>
+                <button class="btn-topic topic-common" onclick="startGame('division')">
+                    <span>Pembagian (÷)</span> <span class="arrow">➜</span>
+                </button>
+                
+                <button id="btn-exponent-start" class="btn-topic topic-special" onclick="startGame('exponent_drill')" style="display:none;">
+                    MULAI LATIHAN EKSPONEN 🚀
+                </button>
             </div>
         </section>
 
@@ -118,22 +147,32 @@
                 </div>
             </div>
             
-            <div class="timer-bar">
-                <div id="timer-fill"></div>
+            <div class="timer-container">
+                <div class="timer-bar">
+                    <div id="timer-fill"></div>
+                </div>
             </div>
 
             <div class="difficulty-badge" id="difficulty-label">MOTS</div>
-            
-            <div id="mode-indicator" style="text-align: center; font-size: 0.8rem; margin-bottom: 10px; opacity: 0.7; font-weight: bold;"></div>
-
-            <div class="question-container-desktop">
-                <div class="question-area single-line-mode">
+            <div id="mode-indicator"></div> <div class="question-container-desktop">
+                <div class="question-area">
                     <div id="question-text">Loading...</div>
+                    <div id="math-expression"></div>
                 </div>
 
                 <div class="interaction-area">
-                    <div class="input-area">
-                        <input type="text" id="answer-input" placeholder="Jawab..." autocomplete="off" onkeydown="handleEnter(event)">
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="answer-input" 
+                            placeholder="Ketik jawaban..." 
+                            autocomplete="off" 
+                            autocorrect="off" 
+                            autocapitalize="off" 
+                            spellcheck="false"
+                            inputmode="text" 
+                            onkeydown="handleEnter(event)">
+                        
                         <button class="btn-submit" onclick="checkAnswer()">JAWAB</button>
                     </div>
                     <p id="feedback-msg"></p>
