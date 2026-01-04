@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DAILY STUDY - Habit Math</title>
+    <title>DAILY STUDY - Habit English</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
     
@@ -34,7 +34,7 @@
                 <h2>Pilih Habit</h2>
             </div>
             
-            <div class="card-container">
+            <div class="card-container grid-layout">
                 <div class="card active-card" onclick="selectHabit('Math')">
                     <div class="icon">🧮</div>
                     <div class="card-text">
@@ -43,17 +43,17 @@
                     </div>
                 </div>
 
-                <div class="card disabled-card">
+                <div class="card active-card" onclick="selectHabit('English')">
                     <div class="icon">🇬🇧</div>
                     <div class="card-text">
                         <h3>Habit English</h3>
-                        <span class="badge coming-soon">COMING SOON</span>
+                        <span class="badge">VOCABULARY</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="view-chapters" class="view">
+        <section id="view-math-chapters" class="view">
             <div class="header">
                 <button class="btn-back" onclick="navigateTo('view-menu')">←</button>
                 <h2>Habit Math</h2>
@@ -71,9 +71,33 @@
             </div>
         </section>
 
+        <section id="view-english-modes" class="view">
+            <div class="header">
+                <button class="btn-back" onclick="navigateTo('view-menu')">←</button>
+                <h2>Vocabulary</h2>
+            </div>
+            <p class="section-label">Pilih Mode Latihan:</p>
+            <div class="card-container">
+                <div class="card active-card" onclick="startEnglishGame('en_to_id')">
+                    <div class="icon">🇬🇧 ➜ 🇮🇩</div>
+                    <div class="card-text">
+                        <h3>English ➜ Indonesia</h3>
+                        <span class="badge">1 BARIS</span>
+                    </div>
+                </div>
+                <div class="card active-card" onclick="startEnglishGame('id_to_en')">
+                    <div class="icon">🇮🇩 ➜ 🇬🇧</div>
+                    <div class="card-text">
+                        <h3>Indonesia ➜ English</h3>
+                        <span class="badge">1 BARIS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="view-topics" class="view">
             <div class="header">
-                <button class="btn-back" onclick="navigateTo('view-chapters')">←</button>
+                <button class="btn-back" onclick="navigateTo('view-math-chapters')">←</button>
                 <h2 id="topic-title">Pilih Topik</h2>
             </div>
             <div class="topic-list grid-layout">
@@ -99,15 +123,17 @@
             </div>
 
             <div class="difficulty-badge" id="difficulty-label">MOTS</div>
+            
+            <div id="mode-indicator" style="text-align: center; font-size: 0.8rem; margin-bottom: 10px; opacity: 0.7; font-weight: bold;"></div>
 
             <div class="question-container-desktop">
-                <div class="question-area">
-                    <div id="math-expression">$$...$$</div>
+                <div class="question-area single-line-mode">
+                    <div id="question-text">Loading...</div>
                 </div>
 
                 <div class="interaction-area">
                     <div class="input-area">
-                        <input type="text" id="answer-input" placeholder="Jawab.." autocomplete="off" onkeydown="handleEnter(event)">
+                        <input type="text" id="answer-input" placeholder="Jawab..." autocomplete="off" onkeydown="handleEnter(event)">
                         <button class="btn-submit" onclick="checkAnswer()">JAWAB</button>
                     </div>
                     <p id="feedback-msg"></p>

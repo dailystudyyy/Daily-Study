@@ -1,9 +1,9 @@
 :root {
-    /* LIGHT MODE (Default) */
+    /* LIGHT MODE */
     --bg-body: #f0f4f8;
     --bg-app: #ffffff;
     --bg-card: #ffffff;
-    --bg-input: #ffffff;
+    --bg-input: #f8f9fa;
     --text-main: #333333;
     --text-muted: #666666;
     --primary-blue: #4A90E2;
@@ -12,22 +12,21 @@
     --border-color: #EAF4FF;
     --shadow-color: rgba(0,0,0,0.05);
     
-    /* Utility Colors */
     --danger: #FF6B6B;
     --success: #51CF66;
     --warning: #FCC419;
     --font-main: 'Fredoka', sans-serif;
 }
 
-/* DARK MODE VARIABLES */
+/* DARK MODE */
 body.dark-mode {
     --bg-body: #121212;
     --bg-app: #1E1E1E;
     --bg-card: #2C2C2C;
-    --bg-input: #2C2C2C;
+    --bg-input: #3a3a3a;
     --text-main: #E0E0E0;
     --text-muted: #A0A0A0;
-    --primary-blue: #64B5F6; /* Lebih terang untuk dark mode */
+    --primary-blue: #64B5F6;
     --dark-blue: #90CAF9;
     --light-blue: #333333;
     --border-color: #444444;
@@ -55,45 +54,28 @@ body {
     overscroll-behavior: none;
 }
 
-/* THEME TOGGLE BUTTON */
 #theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed; top: 20px; right: 20px; z-index: 1000;
+    background: var(--bg-card); border: 2px solid var(--border-color);
+    width: 45px; height: 45px; border-radius: 50%;
+    font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 10px var(--shadow-color);
 }
 
-/* APP CONTAINER */
 .app-container {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     background: var(--bg-app);
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     box-shadow: 0 0 30px var(--shadow-color);
     overflow: hidden;
 }
 
-/* --- NAVIGATION VIEWS --- */
+/* VIEWS */
 .view {
-    display: none;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    display: none; flex-direction: column;
+    height: 100%; width: 100%; padding: 20px;
+    overflow-y: auto; overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     animation: fadeIn 0.3s ease-out;
 }
@@ -104,40 +86,31 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- TYPOGRAPHY --- */
+/* TYPOGRAPHY */
 .main-title { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.2; color: var(--primary-blue);}
 .tagline { font-size: 1rem; margin-bottom: 40px; color: var(--text-muted); font-weight: 300; }
 .section-label { font-weight: bold; color: var(--text-muted); margin-bottom: 15px; }
-h2 { color: var(--text-main); }
 
-/* --- HOME SCREEN --- */
 #view-home {
     justify-content: center; align-items: center; text-align: center;
-    /* Gradient tetap biru tapi disesuaikan opacity di JS jika perlu, atau hardcode */
     background: linear-gradient(135deg, var(--bg-app), var(--light-blue));
 }
-/* Override title color di home */
 #view-home .main-title { color: var(--primary-blue); font-size: 3.5rem;} 
 
-/* --- BUTTONS --- */
-button { border: none; outline: none; user-select: none; cursor: pointer; font-family: var(--font-main); }
-button:active { transform: scale(0.96); }
-
+/* BUTTONS */
 .btn-primary {
     width: 100%; max-width: 300px; padding: 18px 30px;
     border-radius: 50px; font-size: 1.2rem;
     background: var(--primary-blue); color: #fff; font-weight: 600;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: none;
 }
-
 .btn-back {
-    background: var(--light-blue); width: 40px; height: 40px; border-radius: 50%;
-    font-size: 1.2rem; color: var(--text-main);
-    display: flex; align-items: center; justify-content: center;
+    background: var(--light-blue); width: 40px; height: 40px; border-radius: 50%; border: none;
+    font-size: 1.2rem; color: var(--text-main); display: flex; align-items: center; justify-content: center;
     margin-right: 15px; flex-shrink: 0;
 }
 
-/* --- CARDS --- */
+/* CARDS */
 .header { display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px; flex-shrink: 0; }
 .card-container { display: flex; flex-direction: column; gap: 15px; }
 
@@ -145,34 +118,26 @@ button:active { transform: scale(0.96); }
     background: var(--bg-card); border: 2px solid var(--border-color);
     border-radius: 16px; padding: 20px;
     display: flex; align-items: center; gap: 15px;
-    box-shadow: 0 4px 10px var(--shadow-color); transition: 0.2s;
-    cursor: pointer;
+    box-shadow: 0 4px 10px var(--shadow-color); transition: 0.2s; cursor: pointer;
 }
 .active-card:hover { border-color: var(--primary-blue); transform: translateY(-2px); }
 .active-card:active { background-color: var(--light-blue); }
-
 .icon { font-size: 1.8rem; background: var(--light-blue); padding: 12px; border-radius: 12px; min-width: 55px; text-align: center; color: var(--text-main);}
 .card-text { flex: 1; }
 .card-text h3 { color: var(--text-main); margin-bottom: 4px; font-size: 1.1rem; }
 .badge { font-size: 0.75rem; padding: 6px 10px; border-radius: 6px; color: white; font-weight: bold; float: right;}
-.badge.coming-soon { background: #adb5bd; }
 .active-card .badge { background: var(--success); }
-.disabled-card { opacity: 0.7; cursor: not-allowed; filter: grayscale(0.5); }
 
-/* --- TOPIC LIST --- */
+/* TOPICS */
 .topic-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; }
 .btn-topic {
-    padding: 20px; border-radius: 16px;
-    background: var(--bg-card); color: var(--text-main);
-    border: 2px solid var(--border-color);
-    font-size: 1.1rem; text-align: left;
+    padding: 20px; border-radius: 16px; background: var(--bg-card); color: var(--text-main);
+    border: 2px solid var(--border-color); font-size: 1.1rem; text-align: left;
     display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    transition: 0.2s;
+    box-shadow: 0 4px 10px var(--shadow-color); transition: 0.2s;
 }
-.btn-topic:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
 
-/* --- GAME UI --- */
+/* GAME UI */
 .quiz-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.1rem; font-weight: 600; flex-shrink: 0; }
 .stat-box { background: var(--light-blue); color: var(--text-main); padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
 
@@ -182,64 +147,61 @@ button:active { transform: scale(0.96); }
 .difficulty-badge {
     text-align: center; display: inline-block; padding: 6px 20px;
     border-radius: 50px; font-size: 0.85rem; color: white; font-weight: bold;
-    margin-bottom: 15px; align-self: center; margin-left: auto; margin-right: auto;
+    margin-bottom: 5px; align-self: center; margin-left: auto; margin-right: auto;
 }
 
+/* AREA SOAL - 1 BARIS FOCUS */
 .question-area {
-    background: var(--bg-card); border: 2px solid var(--border-color);
-    padding: 30px 15px; border-radius: 20px;
-    text-align: center; font-size: 1.8rem; color: var(--text-main);
-    margin-bottom: 25px; min-height: 150px;
-    display: flex; align-items: center; justify-content: center;
-    overflow-x: auto; white-space: nowrap; max-width: 100%;
-}
-
-/* FIX TOMBOL MOBILE YANG KEPOTONG */
-.input-area { 
-    display: flex; 
-    gap: 10px; 
-    margin-bottom: 10px; 
-    width: 100%; 
-    height: 60px; /* Tinggi fix agar rapi */
-}
-
-#answer-input {
-    flex: 1; /* Ambil sisa ruang */
-    padding: 0 15px; 
-    border-radius: 15px;
-    border: 2px solid var(--border-color); 
-    background: var(--bg-input);
+    background: var(--bg-card); 
+    border: 2px solid var(--border-color);
+    padding: 20px; 
+    border-radius: 20px;
+    text-align: center; 
     color: var(--text-main);
-    font-size: 1.3rem;
-    font-family: var(--font-main); 
-    text-align: center;
-    min-width: 0; /* Mencegah overflow flex item */
+    margin-bottom: 20px;
+    
+    /* Layout */
+    min-height: 150px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    flex-direction: column;
+}
+
+.single-line-mode #question-text {
+    font-size: 2rem; 
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+/* Teks Math vs Teks English */
+.english-text { width: 100%; }
+.math-text { font-size: 1.8rem; white-space: nowrap; overflow-x: auto; }
+
+/* INPUT */
+.input-area { display: flex; gap: 10px; margin-bottom: 10px; width: 100%; height: 60px; flex-shrink: 0; }
+#answer-input {
+    flex: 1; padding: 0 15px; border-radius: 15px;
+    border: 2px solid var(--border-color); background: var(--bg-input);
+    color: var(--text-main); font-size: 1.3rem; font-family: var(--font-main); 
+    text-align: center; min-width: 0;
 }
 #answer-input:focus { border-color: var(--primary-blue); outline: none; }
 
 .btn-submit { 
-    flex-shrink: 0; /* JANGAN MENGECIL SAAT TERDESAK */
-    width: auto;
-    min-width: 100px; /* Lebar minimum */
-    background: var(--primary-blue); 
-    color: white; 
-    padding: 0 20px; /* Padding kiri kanan aman */
-    border-radius: 15px; 
-    font-weight: 700; 
-    font-size: 1rem; 
-    text-transform: uppercase;
-    white-space: nowrap; /* Teks jangan turun baris */
+    flex-shrink: 0; width: auto; min-width: 100px;
+    background: var(--primary-blue); color: white; border: none;
+    padding: 0 20px; border-radius: 15px; 
+    font-weight: 700; font-size: 1rem; text-transform: uppercase; white-space: nowrap;
 }
 
-.btn-quit { width: 100%; padding: 15px; background: transparent; color: var(--danger); margin-top: auto; font-size: 0.9rem; font-weight: 600;}
+.btn-quit { width: 100%; padding: 15px; background: transparent; border: none; color: var(--danger); margin-top: auto; font-size: 0.9rem; font-weight: 600;}
 #feedback-msg { text-align: center; min-height: 24px; font-weight: 800; margin-top: 5px; font-size: 1.1rem; letter-spacing: 1px; }
 
-/* --- MODAL --- */
+/* MODAL */
 .modal {
-    display: none; position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px); /* Efek blur modern */
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
     justify-content: center; align-items: center; z-index: 2000; padding: 20px;
 }
 .modal-content {
@@ -248,73 +210,20 @@ button:active { transform: scale(0.96); }
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.modal-content h2 { color: var(--text-main); margin-bottom: 5px; }
-.modal-content p { color: var(--text-muted); }
 @keyframes popUp { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .modal-content h1 { font-size: 4rem; color: var(--primary-blue); margin: 10px 0 30px 0; }
 .modal-actions { display: flex; flex-direction: column; gap: 10px; }
-.modal-content .btn-secondary { background: var(--light-blue); color: var(--text-main); padding: 15px; border-radius: 50px; font-weight: bold; width: 100%; }
+.modal-content .btn-secondary { background: var(--light-blue); border: none; color: var(--text-main); padding: 15px; border-radius: 50px; font-weight: bold; width: 100%; }
 
-/* ========================================= */
-/* RESPONSIVE DESKTOP (Width >= 1024px) */
-/* ========================================= */
+/* DESKTOP LAYOUT */
 @media (min-width: 1024px) {
-    .app-container {
-        max-width: 1100px; /* Lebar container Laptop */
-        height: 90vh; /* Ada margin atas bawah biar elegan */
-        border-radius: 20px;
-    }
-
-    body {
-        background-color: var(--light-blue); /* Background luar container beda */
-    }
-
-    /* 1. LAYOUT GRID UNTUK MENU */
-    .card-container.grid-layout {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 Kolom */
-        gap: 20px;
-    }
-    
-    .topic-list.grid-layout {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 Kolom */
-        gap: 20px;
-    }
-
-    /* 2. QUIZ LAYOUT */
-    .question-container-desktop {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex: 1; /* Isi ruang tengah */
-        padding: 0 100px; /* Padding kiri kanan biar soal fokus di tengah */
-    }
-
-    .question-area {
-        font-size: 3rem; /* Font soal lebih besar di laptop */
-        padding: 50px;
-        min-height: 250px;
-    }
-
-    .input-area {
-        height: 80px;
-        max-width: 600px;
-        margin: 0 auto 20px auto;
-    }
-
+    .app-container { max-width: 1100px; height: 90vh; border-radius: 20px; }
+    body { background-color: var(--light-blue); }
+    .card-container.grid-layout, .topic-list.grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .question-container-desktop { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 0 100px; }
+    .question-area { min-height: 250px; }
+    .single-line-mode #question-text { font-size: 3.5rem; }
+    .input-area { height: 80px; max-width: 600px; margin: 0 auto 20px auto; }
     #answer-input { font-size: 2rem; }
     .btn-submit { font-size: 1.2rem; padding: 0 40px; }
-
-    /* Navigasi / Header */
-    .header h2 { font-size: 2rem; }
-    .btn-back { width: 50px; height: 50px; font-size: 1.5rem; }
-    
-    /* Tombol Tema */
-    #theme-toggle {
-        top: 30px; right: 30px;
-        width: 60px; height: 60px;
-        font-size: 2rem;
-        cursor: pointer;
-    }
 }
